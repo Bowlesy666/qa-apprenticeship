@@ -68,7 +68,7 @@ def get_user_name():
     """
     print(DASHES)
     print("\tHey and welcome to my super duper Rock Paper Scissors Game.\n\tLet's get started...\n\n")
-    user_name = input("\tWhat is your name? >> ")
+    user_name = input("\tWhat is your name? >> ").capitalize()
     print(f"{DASHES}\n\tNice to meet you {user_name}")
 
     return user_name

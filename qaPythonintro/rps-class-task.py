@@ -46,15 +46,28 @@ class RpsGameClass:
     ---.__(___)
     """
 
+    RPS = """
+
+        _______         _______             _______  
+    ---'   ____)    ---'   ____)____    ---'   ____)____
+          (_____)             ______)             ______)
+          (_____)             _______)         __________)
+          (____)             _______)         (____)
+    ---.__(___)     ---.__________)     ---.__(___)
+
+    """
+
     DASHES = "\n-------------------------------------------------------------------------\n"
 
     def __init__(self):
         self.user_score = 0
         self.opponent_score = 0
+        self.game_counter = 0
         self.user_name = ""
 
     def run_welcome_message(self):
         print(self.BANNER)
+        print(self.RPS)
 
 
     def goodbye(self):
@@ -117,6 +130,7 @@ class RpsGameClass:
         """
         MENU = f"""
         {self.DASHES}
+        {self.RPS}
         \tGame Play Menu
 
         \t1- Rock
@@ -164,19 +178,25 @@ class RpsGameClass:
         elif game_result == "Computer wins!":
             self.opponent_score += 1
         
+        self.game_counter += 1
+        
         print(game_result)
         
 
     def display_scoreboard(self):
+        overall_winner_message = f"{self.user_name} you are the overall winner so far!" if self.user_score > self.opponent_score else ""
+
         scoreboard = f"""
         {self.DASHES}
-        \tScoreboard:
+        \tScoreboard: {self.game_counter} games played!
         \t+----------------+-------+--------+
         \t| Name           | Wins  | Losses |
         \t+----------------+-------+--------+
         \t| {self.user_name:<14} | {self.user_score:<5} | {self.opponent_score:<6} |
         \t| Your opponent  | {self.opponent_score:<5} | {self.user_score:<6} |
         \t+----------------+-------+--------+
+        
+        \t{overall_winner_message}
         {self.DASHES}
         """
 

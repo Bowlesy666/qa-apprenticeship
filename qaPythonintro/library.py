@@ -61,10 +61,10 @@ class BookShelfClass:
         return "Book not found!"
     
     def find_book_by_author(self, book_author):
-        books_by_author = []
-        for book in self.book_list:
-            if book_author == book.author:
-                books_by_author.append(book)
+        books_by_author = [book for book in self.book_list if book_author == book.author]
+        # for book in self.book_list:
+        #     if book_author == book.author:
+        #         books_by_author.append(book)
         
         if len(books_by_author) >= 1:
             return f"Books found by author {book_author} are {', '.join(str(book) for book in books_by_author)}"

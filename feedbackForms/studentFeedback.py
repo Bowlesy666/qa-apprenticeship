@@ -1,96 +1,8 @@
 # import os
 # os.system(f"notepad 1{name}.txt")
 import os
-from feedbackText.feedback_templates import feedback_templates
-import random
-
-
-class Student:
-    def __init__(self, name):
-        self.name = name
-        self.answers = {}
-
-    def add_answer(self, question, answer):
-        self.answers[question] = answer
-
-    def __str__(self):
-        return f"Student: {self.name}, Answers: {self.answers}"
-    
-
-class Question:
-    def __init__(self):
-        self.questions = [
-            "Understanding level (1-5)",
-            "Contribution level (1-5)",
-            "Lab completion level (1-5)",
-            "Engagement level (1-5)",
-            "Punctuality level (1-5)",
-            "Further-learning level (1-5)"
-        ]
-
-    def get_questions(self):
-        return self.questions
-    
-
-class FeedbackGenerator:
-    def __init__(self):
-        self.students = []
-        self.questions = Question().get_questions()
-        self.feedback_templates = feedback_templates
-
-    def add_student(self, student):
-        self.students.append(student)
-
-    def generate_feedback_text(self, question, score):
-        templates = self.feedback_templates[question][score]
-        return random.choice(templates)
-
-    def generate_feedback(self, student):
-        feedback = ""
-
-        general_comments = f"General comments\n{student.name} "
-        punctuality_engagement = f"Learner Punctuality and engagement\n{student.name} "
-        further_learning = "Recommendations on further learning\n"
-
-        for question, answer in student.answers.items():
-            if student.name.lower() in ['david bowles']:
-                answer = 5 # Easter egg ;)
-            feedback_text = self.generate_feedback_text(question, answer)
-            match question:
-                case "Understanding level (1-5)":
-                    general_comments += feedback_text + " "
-                case "Contribution level (1-5)":
-                    prefixed_text = self.generate_feedback_text("general_comments_prefix", 0) + feedback_text + " "
-                    general_comments += prefixed_text
-                case "Lab completion level (1-5)":
-                    prefix = self.generate_feedback_text("general_comments_prefix", 1)
-                    general_comments += prefix + feedback_text + " "
-                case "Engagement level (1-5)":
-                    punctuality_engagement += feedback_text + " "
-                case "Punctuality level (1-5)":
-                    prefix = self.generate_feedback_text("punctuality_engagement_prefix", 0)
-                    punctuality_engagement += prefix + feedback_text + " "
-                case "Further-learning level (1-5)":
-                    prefix = self.generate_feedback_text("punctuality_engagement_prefix", 0)
-                    further_learning += prefix + student.name  + " " + feedback_text
-
-        feedback += f"\nFeedback for {student.name}:\n"
-        feedback += general_comments.strip() + "\n\n"
-        feedback += punctuality_engagement.strip() + "\n\n"
-        feedback += further_learning.strip() + "\n"
-
-        return feedback
-
-    def confirm_feedback(self, feedback):
-        print(feedback)
-        confirm = input("\n\tIs this feedback acceptable? (y/n):\n\ttyping anything other than 'y' will generate again) >> ").lower()
-        return confirm == 'y'
-
-    def save_feedback(self, student_name, feedback):
-        filename = f"StudentFeedbackFiles/{student_name}_feedback.txt"
-        with open(filename, 'w') as file:
-            file.write(feedback)
-
+from studentClass import Student
+from feedbackGeneratorClass import FeedbackGenerator
 
 class StudentFeedbackClass:
     def __init__(self):
@@ -106,6 +18,14 @@ class StudentFeedbackClass:
     | |    | '_ \\ / _ \\/ _` | __\\___ \\| '_ \\ / _ \\/ _ \\ __|                
     | |___ | | | |  __/ (_| | |_ ___) | | | |  __/  __/ |_                 
      \\____||_| |_|\\___|\\__,_|\\__|____/|_| |_|\\___|\\___|\\__|                
+    """
+    GOODBYE_MESSAGE = """
+        _           _____             __  __            _        
+       / \\  __/\\__ |_   _|__  _ __   |  \\/  | __ _ _ __| | _____ 
+      / _ \\ \\    /   | |/ _ \\| '_ \\  | |\\/| |/ _` | '__| |/ / __|
+     / ___ \\/_  _\\   | | (_) | |_) | | |  | | (_| | |  |   <\\__ \\
+    /_/   \\_\\ \\/     |_|\\___/| .__/  |_|  |_|\\__,_|_|  |_|\\_\\___/
+                             |_|
     """
 
     def display_student_list_menu(self):
@@ -125,12 +45,31 @@ class StudentFeedbackClass:
     def run_welcome_message(self):
         print(self.BANNER)
 
+    def run_again(self):
+        """
+        accepts user input
+        continue with app or close
+        """
+        while True:
+            check_again_input = input(
+                f"\n\t>> Do you want to complete more student feedback? (y/n)\n\t>> ").lower()
+            if check_again_input not in ('y', 'n'):
+                if len(check_again_input) >= 2:
+                    print("\t>> We're not writing an essay here, just use y or n...\n")
+                    continue
+                else:
+                    print('\t>> Please use y or n ...its not difficult...\n')
+                    continue
+
+            return True if check_again_input == 'y' else False
+
     def goodbye(self):
         """
         Berbye now!
         """
         print(self.DASHES)
         print("\n\n\tThanks for using my Feedback Cheat Sheet!\n\tDont forget I accept donations in the way of snacks, compliments and increased grades! :)\n\n")
+        print(self.GOODBYE_MESSAGE)
         print(self.DASHES)
 
     def get_list_menu_choice(self):
@@ -196,17 +135,18 @@ class StudentFeedbackClass:
                     try:
                         answer = int(input(f"\t{question} >> ").strip())
                         if 1 <= answer <= 5:
-                            student.add_answer(question, answer)  # Adding answer to the dictionary
+                            student.add_answer(question, answer)
                             break
                         else:
                             print("\tPlease enter a number between 1 and 5.")
                     except ValueError:
                         print("\tInvalid input. Please enter a number between 1 and 5.")
-            # Generate and confirm feedback for the current student
             while True:
+                print(self.DASHES)
                 feedback = self.feedback_generator.generate_feedback(student)
                 if self.feedback_generator.confirm_feedback(feedback):
                     self.feedback_generator.save_feedback(student.name, feedback)
+                    print(self.DASHES)
                     break
     
     def main(self):
@@ -217,8 +157,14 @@ class StudentFeedbackClass:
         exit message
         """
         self.run_welcome_message()
-        self.get_student_list()
-        self.collect_student_answers()
+        while True:
+            self.get_student_list()
+            self.collect_student_answers()
+
+            if self.run_again():
+                continue
+            else:
+                break
         
         self.goodbye()
 

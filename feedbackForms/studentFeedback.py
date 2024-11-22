@@ -1,8 +1,7 @@
-# import os
-# os.system(f"notepad 1{name}.txt")
-import os
 from studentClass import Student
 from feedbackGeneratorClass import FeedbackGenerator
+from questionClass import Question
+
 
 class StudentFeedbackClass:
     def __init__(self):
@@ -144,8 +143,12 @@ class StudentFeedbackClass:
             while True:
                 print(self.DASHES)
                 feedback = self.feedback_generator.generate_feedback(student)
-                if self.feedback_generator.confirm_feedback(feedback):
+                confirm_feedback = self.feedback_generator.confirm_feedback(feedback)
+                if confirm_feedback:
                     self.feedback_generator.save_feedback(student.name, feedback)
+                    if confirm_feedback[1] in ['edit', 'open']:
+                        print("\n\n\t** Opening file on your system... **")
+                        self.feedback_generator.open_feedback_file(student)
                     print(self.DASHES)
                     break
     

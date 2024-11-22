@@ -1,3 +1,4 @@
+import os
 from feedbackText.feedback_templates import feedback_templates
 from questionClass import Question
 import random
@@ -54,11 +55,17 @@ class FeedbackGenerator:
 
     def confirm_feedback(self, feedback):
         print(feedback)
-        confirm = input("\n\tIs this feedback acceptable? (y/n):\n\ttyping anything other than 'y' will generate again) >> ").lower()
-        return confirm == 'y'
+        confirm = input("\n\tIs this feedback acceptable? (y/n):\n\ttyping anything other than 'y' yes edit open will generate again) >> ").lower()
+
+        if confirm in ['y', 'yes', 'edit', 'open']:
+            return True, confirm
 
     def save_feedback(self, student_name, feedback):
         filename = f"StudentFeedbackFiles/{student_name}_feedback.txt"
         with open(filename, 'w') as file:
             file.write(feedback)
         print(f"\n\n\t** File successfully saved for {student_name} as {filename} **")
+
+    def open_feedback_file(self, student_name):
+        filename = f"StudentFeedbackFiles/{student_name}_feedback.txt"
+        os.system(f"notepad {filename}")

@@ -9,6 +9,9 @@ class FeedbackGenerator:
         self.students = []
         self.questions = Question().get_questions()
         self.feedback_templates = feedback_templates
+        self.feedback_dir = "StudentFeedbackFiles"
+        if not os.path.exists(self.feedback_dir):
+            os.makedirs(self.feedback_dir)
 
     def add_student(self, student):
         self.students.append(student)
@@ -67,5 +70,7 @@ class FeedbackGenerator:
         print(f"\n\n\t** File successfully saved for {student_name} as {filename} **")
 
     def open_feedback_file(self, student_name):
-        filename = f"StudentFeedbackFiles/{student_name}_feedback.txt"
-        os.system(f"notepad {filename}")
+        filename = os.path.join(self.feedback_dir, f"{student_name.name}_feedback.txt")
+        absolute_path = os.path.abspath(filename)
+        print(absolute_path)
+        os.system(f"notepad {absolute_path}")

@@ -58,7 +58,8 @@ class FeedbackGenerator:
 
     def confirm_feedback(self, feedback):
         print(feedback)
-        confirm = input("\n\tIs this feedback acceptable? (y/n):\n\ttyping anything other than 'y' yes edit open will generate again) >> ").lower()
+        print("\n\tIs this feedback acceptable? (yes/edit/*):\n\t\t- Typing 'y' or 'yes' will save the file\n\t\t- Typing 'edit' or 'open' will open in notepad so you can manually edit\n\t\t- Typing anything else/leaving blank will generate a new response)")
+        confirm = input("\n\n\t>> ").lower()
 
         if confirm in ['y', 'yes', 'edit', 'open']:
             return True, confirm

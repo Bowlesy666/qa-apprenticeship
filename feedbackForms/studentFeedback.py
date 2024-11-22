@@ -34,7 +34,6 @@ class StudentFeedbackClass:
         \n\t1. Enter as comma seperated values
         \n\t2. Enter individual names
 
-        {self.DASHES}
         """
 
         print(menu)
@@ -88,7 +87,7 @@ class StudentFeedbackClass:
 
     def get_students_as_csv(self):
         while True:
-            students_csv = input("\n\tEnter student names as comma-separated values: ")
+            students_csv = input("\n\tYou chose to enter student names as comma-separated values:\n\n\t** eg David Bowles, Chris Reeves, Donald Duck **\n")
             student_list = [name.strip().capitalize() for name in students_csv.split(',')]
             print(f"\n\tStudent names: {student_list}")
             confirm = input("\n\tIs this list correct? (y/n): ").lower()
@@ -100,7 +99,7 @@ class StudentFeedbackClass:
     def get_students_individually(self):
         while True:
             student_list = []
-            print("\n\tEnter student names one by one. Type 'done' or enter an empty name when finished.")
+            print("\n\tYou chose to enter student names one by one.\n\n\t** Hit enter after each name **\n\t** Type 'done' or enter an empty string when finished. **\n")
             while True:
                 student_name = input("\t>> ").strip().capitalize()
                 if student_name.lower() == 'done' or student_name == '':
@@ -117,6 +116,8 @@ class StudentFeedbackClass:
     def get_student_list(self):
         self.display_student_list_menu()
         chosen_input_style = self.get_list_menu_choice()
+        print(self.DASHES)
+
         if chosen_input_style == 1:
             student_names = self.get_students_as_csv()
         elif chosen_input_style == 2:
@@ -128,7 +129,8 @@ class StudentFeedbackClass:
     def collect_student_answers(self):
         for student in self.feedback_generator.students:
             print(f"\n\tCollecting answers for {student.name}:")
-            print("\t1. Poor | 2. Improvement needed | 3. Average | 4. Good | 5. Outstanding\n")
+            print("\t1. Poor | 2. Improvement needed | 3. Average | 4. Good | 5. Outstanding")
+            print("\n\t** Use the legend above to help you rank the student for each question 1 to 5 **\n")
             for question in self.feedback_generator.questions:
                 while True:
                     try:
@@ -148,6 +150,7 @@ class StudentFeedbackClass:
                     self.feedback_generator.save_feedback(student.name, feedback)
                     if confirm_feedback[1] in ['edit', 'open']:
                         print("\n\n\t** Opening file on your system... **")
+                        print("\n\n\t** Save and close the file to continue... **")
                         self.feedback_generator.open_feedback_file(student)
                     print(self.DASHES)
                     break

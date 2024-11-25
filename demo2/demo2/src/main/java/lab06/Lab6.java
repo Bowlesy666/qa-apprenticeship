@@ -72,7 +72,15 @@ public class Lab6 {
         System.out.println("It takes " + yearsToDouble + " years to double the investment of £" + initialInvestment);
     }
 
-    public void 
+    public void multiplicationTable() {
+        System.out.println("\nYo, here is a multiplication matrix table:\n");
+        for (int row = 1; row <= 12; row++) {
+            for (int column = 1; column <= 12; column++) {
+                System.out.printf("%5d", row * column);
+            }
+            System.out.println();
+        }
+    }
 
     public void closeScanner() {
         scanner.close();

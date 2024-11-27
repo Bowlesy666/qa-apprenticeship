@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 public class Zoo {
     HashMap<String, Integer> animalMap = new HashMap<>();
-    
+
     public void addAnimals(String[] animals) {
         for (String animal : animals) {
             if (animalMap.containsKey(animal)) {
@@ -13,6 +13,13 @@ public class Zoo {
                 animalMap.put(animal, 1);
             }
         }
-        System.out.println(animalMap);
+    }
+
+    public void displayAnimalData() {
+        System.out.println("\n\tWhat up with my zoo!\n");
+        for (HashMap.Entry<String, Integer> entry: animalMap.entrySet()) {
+            System.out.println("\t" + entry.getKey() + "\t\t" + entry.getValue());
+        }
+        System.out.println("\n\tSeeya!\n");
     }
 }

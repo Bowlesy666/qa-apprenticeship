@@ -20,6 +20,7 @@ public class Program {
 
         zoo.addAnimals(originalAnimals);
         zoo.addAnimals(newAnimals);
+        zoo.displayAnimalData();
     }
 
     public static void buy() {

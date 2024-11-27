@@ -1,12 +1,12 @@
-package lab11;
+package lab12;
 
-import java.util.LinkedList;
-import java.util.Queue;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Arrays;
 
 public class Program {
-    public static Queue<ShoppingBasket> baskets = new LinkedList<>();
-
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         String banner = """
         
  ▄▄▄▄▄▄▄▄▄▄▄  ▄▄▄▄▄▄▄▄▄▄▄  ▄               ▄  ▄▄▄▄▄▄▄▄▄▄▄                     
@@ -50,33 +50,30 @@ public class Program {
         System.out.println(dashes);
         System.out.println(banner);
         System.out.println(dashes);
-        buy();
-        processBaskets();
+        
+        String[] trainerResult = readCSV("C:\\Users\\David.Bowles\\OneDrive - canopius.com\\Citrix\\Desktop\\dev\\qaPython\\qaPythonintro\\demo2\\demo2\\src\\trainer.txt");
+        String[] coursesResult = readCSV("C:\\Users\\David.Bowles\\OneDrive - canopius.com\\Citrix\\Desktop\\dev\\qaPython\\qaPythonintro\\demo2\\demo2\\src\\trainer.txt");
+        System.out.println(Arrays.toString(trainerResult));
         System.out.println(dashes);
-        
-        String[] originalAnimals = {"Zebra", "Lion", "Buffalo"};
-        String[] newAnimals = {"Zebra", "Gazelle", "Buffalo", "Zebra"};
-        
-        Zoo zoo = new Zoo();
-        
-        zoo.addAnimals(originalAnimals);
-        zoo.addAnimals(newAnimals);
-        zoo.displayAnimalData();
+        System.out.println(Arrays.toString(coursesResult));
         System.out.println(dashes);
+        String file = "demo2\\demo2\\src\\trainersAndCourses.txt";
+        file.createNewFile();
+        // System.out.println(Arrays.toString(trainerResult));
+        // System.out.println(dashes);
     }
 
-    public static void buy() {
-        baskets.add(new ShoppingBasket("basket1", 21, 12.12));
-        baskets.add(new ShoppingBasket("basket2", 28, 44.21));
-        baskets.add(new ShoppingBasket("basket3", 28, 44.21));
-        baskets.add(new ShoppingBasket("basket4", 28, 44.21));
-        baskets.add(new ShoppingBasket("basket5", 28, 44.21));
-    }
-
-    public static void processBaskets() {
-        while (!baskets.isEmpty()) {
-            ShoppingBasket currentBasket = baskets.remove();
-            currentBasket.displayDetails();
+    private static String[] readCSV(String inFile) throws IOException {
+        FileReader fileReader = new FileReader(inFile);
+        try (BufferedReader bufferedReader = new BufferedReader(fileReader)) {
+            String[] returnSplitLine = bufferedReader.readLine().split(",");
+            
+            return returnSplitLine;
         }
+        catch (IOException ex) {
+            String[] blah = {"blah", "blah", "This", ":", "doesnt", "work"};
+            return blah;
+        }
+        
     }
 }

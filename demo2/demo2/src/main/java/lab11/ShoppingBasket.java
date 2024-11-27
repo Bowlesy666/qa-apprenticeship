@@ -12,6 +12,6 @@ public class ShoppingBasket {
     }
 
     public void displayDetails() {
-        System.out.println("Product: " + this.productName + " | Quantity: " + this.quantity + " | Price: " + this.price);
+        System.out.println("\tProduct: " + this.productName + " | Quantity: " + this.quantity + " | Price: " + this.price);
     }
 }

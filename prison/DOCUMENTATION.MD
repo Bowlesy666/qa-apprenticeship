@@ -6,7 +6,7 @@ Find an image for here
 
 "King of the Wing" is a prison simulation game where you enter the prison system and work your way up to becoming the king of the wing. You start in a low-risk cellblock and work up to a high-security cellblock.
 
-Along the way, you collect items, trade, face challenges, and interact with guards and other inmates while gaining notoriatey and ultimately becoming King of the Wing. The sim is designed to be humorous, with silly items and charges.
+Along the way, you collect items, trade, face challenges, and interact with guards and other inmates while gaining notoriatey. Each stage would see you add more charges and time to your sentence but this adds safety to you and ultimately becoming King of the Wing. The sim is designed to be funny, with silly challenges and ascii art so its not just a boring text based app.
 
 ## Simulation Flow
 

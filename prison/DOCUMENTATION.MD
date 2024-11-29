@@ -20,3 +20,6 @@ Along the way, you collect items, trade, face challenges, and interact with guar
 8. **Become King of the Wing**: Achieve the ultimate status.
 
 ### Class Diagram
+
+![King of the wing - Game Package](docsimages\KOTW1.PNG)
+![King of the wing - Character Package](docsimages\KOTW2.PNG)

@@ -21,5 +21,5 @@ Along the way, you collect items, trade, face challenges, and interact with guar
 
 ### Class Diagram
 
-![King of the wing - Game Package](https://github.com/Bowlesy666/qa-apprenticeship/blob/main/prison/docsimages/KOTW1.PNG)
-![King of the wing - Character Package](https://github.com/Bowlesy666/qa-apprenticeship/blob/main/prison/docsimages/KOTW1.PNG)
+![King of the wing - Game Package](https://github.com/Bowlesy666/qa-apprenticeship/blob/main/prison/kotw1.PNG)
+![King of the wing - Character Package](https://github.com/Bowlesy666/qa-apprenticeship/blob/main/prison/kotw2.PNG)

@@ -1,0 +1,12 @@
+h1, h2, a {
+    color: pink;
+}
+
+ul:first-child:last-child { color: red; }
+div:not(ul) { color: green; }
+
+a { color: orange; }
+a:link { color: blue; }
+a:visited { color: black; }
+a:hover { color: green; }
+a:active { color: red; }
